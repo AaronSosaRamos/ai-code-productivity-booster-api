@@ -1,2 +1,2 @@
-# ai-productivity-booster
-This is an example for AI Research
+# ai-code-productivity-booster
+This is an example for AI Code Productivity Booster
