@@ -7,7 +7,8 @@ from app.api.schemas.refactoring_assistant_schema import (
     RefactoringSuggestions
 )
 from crewai import (
-    Crew, 
+    Crew,
+    Task, 
     Agent
 )
 from textwrap import dedent
@@ -232,7 +233,7 @@ class CodeRefactoringCrew:
         result = crew.kickoff()
         return result
     
-def run_refactoring_assistant_crew(code_snippet, language, context):
-    crew = CodeRefactoringCrew(code_snippet, language, context)
+def run_refactoring_assistant_crew(args: CodeInput):
+    crew = CodeRefactoringCrew(args.code_snippet, args.language, args.context)
     results = crew.run()
     return results
