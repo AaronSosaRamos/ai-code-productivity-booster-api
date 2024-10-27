@@ -16,3 +16,4 @@ wikipedia
 "wikibase-rest-api-client<0.2" 
 mediawikiapi 
 arxiv
+tavily-python
