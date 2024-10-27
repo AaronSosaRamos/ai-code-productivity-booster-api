@@ -1,9 +1,9 @@
+from app.api.features.doc_generator_assistant.crew import run_documentation_generator_crew
+from app.api.features.refactoring_assistant.crew import run_refactoring_assistant_crew
 from app.api.schemas.refactoring_assistant_schema import CodeInput
 from fastapi import APIRouter, Depends
 from app.api.logger import setup_logger
 from app.api.auth.auth import key_check
-from app.api.features.refactoring_assistant import run_refactoring_assistant_crew
-from app.api.features.doc_generator_assistant import run_documentation_generator_crew
 
 logger = setup_logger(__name__)
 router = APIRouter()
