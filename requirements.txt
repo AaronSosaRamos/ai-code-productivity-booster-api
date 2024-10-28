@@ -1,19 +1,31 @@
+# Web framework and server
 fastapi
+uvicorn[standard]
+
+# Environment management
+python-dotenv
+
+# LangChain core and community modules
 langchain
 langchain_core
 langchain-community
-uvicorn[standard]
-python-dotenv
-tqdm
-crewai
-unstructured
-tools
-crewai
 langchain-google-genai
 langchain-openai
 langchain-experimental 
-wikipedia 
-"wikibase-rest-api-client<0.2" 
-mediawikiapi 
+
+# CrewAI integration
+crewai
+
+# Unstructured data handling
+unstructured
+tools  # Asegúrate de que "tools" sea el nombre correcto de la librería que necesitas
+
+# Utility and progress visualization
+tqdm
+
+# Knowledge sources and APIs
+wikipedia
+wikibase-rest-api-client<0.2
+mediawikiapi
 arxiv
 tavily-python

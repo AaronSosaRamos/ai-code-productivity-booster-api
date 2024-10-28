@@ -45,4 +45,3 @@ class ModuleDocumentation(BaseModel):
 
 class DocumentationOutput(BaseModel):
     documentation: str
-    module_documentation: ModuleDocumentation

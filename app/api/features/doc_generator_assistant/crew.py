@@ -16,6 +16,7 @@ from langchain_community.tools.wikidata.tool import WikidataAPIWrapper, Wikidata
 from langchain_community.utilities import ArxivAPIWrapper
 from langchain.tools import Tool
 import json
+from langchain_core.output_parsers import JsonOutputParser
 
 class CustomAgents:
     def __init__(self):
@@ -222,6 +223,7 @@ class DocumentationGeneratorCrew:
         return result
     
 def run_documentation_generator_crew(args: CodeInput):
+    parser = JsonOutputParser(pydantic_object=DocumentationOutput)
     crew = DocumentationGeneratorCrew(args.code_snippet, args.language, args.context)
     results = crew.run()
-    return results
+    return parser.parse(results.raw)
