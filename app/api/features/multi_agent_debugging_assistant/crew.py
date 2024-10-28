@@ -18,6 +18,7 @@ from langchain_community.utilities import WikipediaAPIWrapper
 from langchain_community.tools.wikidata.tool import WikidataAPIWrapper, WikidataQueryRun
 from langchain_community.utilities import ArxivAPIWrapper
 from langchain.tools import Tool
+from langchain_core.output_parsers import JsonOutputParser
 
 class CustomAgents:
     def __init__(self):
@@ -235,6 +236,7 @@ class DebuggingAssistantCrew:
         return result
 
 def run_multi_agent_debugging_crew(args: CodeInput):
+    parser = JsonOutputParser(pydantic_object=FixedCode)
     crew = DebuggingAssistantCrew(args.code_snippet, args.language, args.context)
     results = crew.run()
-    return results
+    return parser.parse(results.raw)
