@@ -8,3 +8,11 @@ tqdm
 crewai
 unstructured
 tools
+crewai
+langchain-google-genai
+langchain-openai
+langchain-experimental 
+wikipedia 
+"wikibase-rest-api-client<0.2" 
+mediawikiapi 
+arxiv
