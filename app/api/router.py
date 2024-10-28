@@ -1,4 +1,6 @@
-#from app.api.features.schemas.schemas import RequestSchema, SpellingCheckerRequestArgs
+from app.api.features.doc_generator_assistant.crew import run_documentation_generator_crew
+from app.api.features.refactoring_assistant.crew import run_refactoring_assistant_crew
+from app.api.schemas.refactoring_assistant_schema import CodeInput
 from fastapi import APIRouter, Depends
 from app.api.logger import setup_logger
 from app.api.auth.auth import key_check
@@ -10,16 +12,18 @@ router = APIRouter()
 def read_root():
     return {"Hello": "World"}
 
-# @router.post("/check-spelling")
-# async def submit_tool( data: RequestSchema, _ = Depends(key_check)):
-#     logger.info(f"Loading request args...")
-#     args = SpellingCheckerRequestArgs(spelling_checker_schema=data)
-#     logger.info(f"Args. loaded successfully")
+@router.post("/refactoring-assistant")
+async def submit_tool( data: CodeInput, _ = Depends(key_check)):
+    logger.info("Generating the refactoring assistance")
+    results = run_refactoring_assistant_crew(data)
+    logger.info("The refactoring assistance has been successfully generated")
 
-#     chain = compile_chain()
+    return results
 
-#     logger.info("Generating the spelling checking analysis")
-#     results = chain.invoke(args.validate_and_return())
-#     logger.info("The spelling checking analysis has been successfully generated")
+@router.post("/doc-generator-assistant")
+async def submit_tool( data: CodeInput, _ = Depends(key_check)):
+    logger.info("Generating the documentation generator assistance")
+    results = run_documentation_generator_crew(data)
+    logger.info("The documentation generator assistance has been successfully generated")
 
-#     return results
+    return results

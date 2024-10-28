@@ -7,7 +7,8 @@ from app.api.schemas.refactoring_assistant_schema import (
     RefactoringSuggestions
 )
 from crewai import (
-    Crew, 
+    Crew,
+    Task, 
     Agent
 )
 from textwrap import dedent
@@ -19,6 +20,7 @@ from langchain_community.utilities import WikipediaAPIWrapper
 from langchain_community.tools.wikidata.tool import WikidataAPIWrapper, WikidataQueryRun
 from langchain_community.utilities import ArxivAPIWrapper
 from langchain.tools import Tool
+from langchain_core.output_parsers import JsonOutputParser
 
 class CustomAgents:
     def __init__(self):
@@ -232,7 +234,8 @@ class CodeRefactoringCrew:
         result = crew.kickoff()
         return result
     
-def run_refactoring_assistant_crew(code_snippet, language, context):
-    crew = CodeRefactoringCrew(code_snippet, language, context)
+def run_refactoring_assistant_crew(args: CodeInput):
+    parser = JsonOutputParser(pydantic_object=RefactoredCode)
+    crew = CodeRefactoringCrew(args.code_snippet, args.language, args.context)
     results = crew.run()
-    return results
+    return parser.parse(results.raw)
