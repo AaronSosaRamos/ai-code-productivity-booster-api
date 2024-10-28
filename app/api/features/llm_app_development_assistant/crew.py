@@ -10,6 +10,7 @@ from langchain_community.tools import TavilySearchResults
 from langchain_community.utilities import WikipediaAPIWrapper
 from langchain_community.tools.arxiv.tool import ArxivAPIWrapper
 from langchain.tools import Tool
+from langchain_core.output_parsers import JsonOutputParser
 
 class CustomAgents:
     def __init__(self):
@@ -254,6 +255,7 @@ class LLMDevelopmentAssistantCrew:
         return result
     
 def run_llm_development_assistant_crew(args: ApplicationIdea):
+    parser = JsonOutputParser(pydantic_object=DevelopmentOutput)
     crew = LLMDevelopmentAssistantCrew(args.project_name, args.description)
     results = crew.run()
-    return results
+    return parser.parse(results.raw)
